@@ -32,11 +32,31 @@ app.get('/', (req, res) => {
     });
 });
 
+const aboutRouter = require('./routes/about');
+
+app.use('/about', aboutRouter);
+
+//client
 app.use((req, res) => {
     res.status(404).json('404 Not Found');
 });
 
+app.use((req, res) => {
+    res.status(403).json('403 Forbidden');
+});
+
+//server
 app.use((err, req, res) => {
     console.error(err.stack);
     res.status(500).json('500 Internal Server Error');
+});
+
+app.use((err, req, res) => {
+    console.error(err.stack);
+    res.status(502).json('502 Bad Gateway');
+});
+
+app.use((err, req, res) => {
+    console.error(err.stack);
+    res.status(503).json('503 Server Unavailable');
 });
