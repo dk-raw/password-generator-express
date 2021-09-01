@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strong Password Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <div class="container p-3 mt-5">
+        <h1 class="display-2">
+            <i class="bi bi-shield-lock text-warning"></i>
+            <%= locals.title || 'Default Title' %>
+        </h1>
+        <p class="lead">easily and securely generate a strong password</p>
+        <div class="input-group">
+            <span class="input-group-text">Password</span>
+            <input type="text" class="form-control"
+                value="<%= locals.password || 'something went wrong. Try again later' %> " id="password" readonly>
+            <button class="btn btn-outline-primary" id="copy-to-clipboard">Copy Password</button>
+        </div>
+        <button class="btn btn-outline-success my-3" onclick="refreshPage()">Generate New Password</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
