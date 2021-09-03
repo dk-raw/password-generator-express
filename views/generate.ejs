@@ -23,7 +23,7 @@
             <i class="bi bi-shield-lock text-warning"></i>
             <%= locals.title || 'Default Title' %>
         </h1>
-        <p class="lead">easily and securely generate a strong password</p>
+        <p class="lead">your <%= locals.passwordLength %> character long password is ready.</p>
         <div class="input-group">
             <span class="input-group-text">Password</span>
             <input type="text" class="form-control"
@@ -41,7 +41,17 @@
             server: <%= locals.time %>
         </p>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.querySelector('#copy-to-clipboard').addEventListener('click', () => {
+            navigator.clipboard.writeText(document.querySelector('#password').value).then(() => {
+                document.querySelector('#copy-to-clipboard').innerText = 'Copied!';
+                console.log('Success: copied to clipboard');
+            }, (err) => {
+                console.error('Error: could not copy to clipboard: ', err);
+                document.querySelector('#copy-to-clipboard').innerText = 'Error!';
+            });
+        });
+    </script>
 </body>
 
 </html>

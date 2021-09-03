@@ -33,6 +33,7 @@ app.post('/generate', (req, res) => {
     res.render('generate.ejs', {
         title: 'Strong Password Generator::Generate',
         password: generatePassword(length),
+        passwordLength: length,
         visitorNumber: visitorNumber,
         time: time
     });
