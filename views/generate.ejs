@@ -24,18 +24,15 @@
             <%= locals.title || 'Default Title' %>
         </h1>
         <p class="lead">easily and securely generate a strong password</p>
-        <form action="/generate" method="POST" class="needs-validation was-validated">
-            <label for="validationCustom01">Password length</label>
-            <input type="number" name="length" id="validationCustom01" class="form-control"
-                placeholder="password lenght" defaultValue="16" value="16" min="8" max="10000" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-            <div class="invalid-feedback">
-                Please choose a password length between 8 and 10000.
-            </div>
-            <button type="submit" class="btn btn-outline-success w-100 my-3">Generate Password</button>
-        </form>
+        <div class="input-group">
+            <span class="input-group-text">Password</span>
+            <input type="text" class="form-control"
+                value="<%= locals.password || 'something went wrong. Try again later' %> " id="password" readonly>
+            <button class="btn btn-outline-primary" id="copy-to-clipboard">Copy Password</button>
+        </div>
+        <a href="/" class="btn btn-outline-success w-100 my-3">Generate a new password</a>
+        <p class="text-muted">total passwords generated: <%= locals.visitorNumber %>
+        </p>
         <p class="text-muted position-fixed bottom-0">Brought to you by <a href="https://dkatsios.ml" target="_blank"
                 rel="noopener">Damian</a>. &copy;2021
             Damian Katsios - All Rights Reserved - <a href="https://github.com/dk-raw/password-generator-express"

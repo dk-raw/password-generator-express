@@ -1,6 +1,3 @@
-const refreshPage = () => {
-    location.reload();
-}
 document.querySelector('#copy-to-clipboard').addEventListener('click', () => {
     const pass = document.querySelector('#password');
     pass.select();
@@ -13,3 +10,17 @@ document.querySelector('#copy-to-clipboard').addEventListener('click', () => {
         document.querySelector('#copy-to-clipboard').innerText = 'Error!';
     }
 });
+(() => {
+    'use strict'
+    let forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', (event) => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+})();

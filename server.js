@@ -1,11 +1,11 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`)
-});
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+let visitorNumber = 0;
 
 const generatePassword = (length) => {
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=<>,./?\|"
@@ -17,19 +17,26 @@ const generatePassword = (length) => {
 }
 
 app.get('/', (req, res) => {
-    /* res.send('Test') */
-    /* res.json({ message: 'Test' }); */
-    /* res.status(500).send('Internal Server Error'); */
-    /* res.status(500).json({ message: 'Internal Server Error' }); */
-    /* res.download('server.js'); */
-    /* res.sendFile('server.js', { root: __dirname }); displays a file in the browser */
-    /* res.render('index'); */
-    /* res.redirect('https://google.com'); */
-    const password = '12345';
+    const current = new Date();
+    const time = current.toLocaleTimeString("en-US");
     res.render('index.ejs', {
         title: 'Strong Password Generator',
-        password: generatePassword(16)
+        time: time
     });
+});
+
+app.post('/generate', (req, res) => {
+    const length = req.body.length || 16;
+    const current = new Date();
+    const time = current.toLocaleTimeString("en-US");
+    visitorNumber++
+    res.render('generate.ejs', {
+        title: 'Strong Password Generator::Generate',
+        password: generatePassword(length),
+        visitorNumber: visitorNumber,
+        time: time
+    });
+    res.end();
 });
 
 const aboutRouter = require('./routes/about');
@@ -40,23 +47,14 @@ app.use('/about', aboutRouter);
 app.use((req, res) => {
     res.status(404).json('404 Not Found');
 });
-
 app.use((req, res) => {
-    res.status(403).json('403 Forbidden');
+    res.status(400).json('400 Bad Request');
 });
-
 //server
 app.use((err, req, res) => {
     console.error(err.stack);
     res.status(500).json('500 Internal Server Error');
 });
-
-app.use((err, req, res) => {
-    console.error(err.stack);
-    res.status(502).json('502 Bad Gateway');
-});
-
-app.use((err, req, res) => {
-    console.error(err.stack);
-    res.status(503).json('503 Server Unavailable');
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`)
 });
