@@ -28,10 +28,22 @@
             <span class="input-group-text">Password</span>
             <input type="text" class="form-control"
                 value="<%= locals.password || 'something went wrong. Try again later' %> " id="password" readonly>
-            <button class="btn btn-outline-primary" id="copy-to-clipboard">Copy Password</button>
+            <button class="btn btn-outline-primary" id="copy-to-clipboard">Copy</button>
         </div>
-        <a href="/" class="btn btn-outline-success w-100 my-3">Generate a new password</a>
-        <p class="text-muted">total passwords generated: <%= locals.visitorNumber %>
+        <hr>
+        <form action="/generate" method="POST" class="needs-validation was-validated my-3">
+            <label for="length" class="form-label">Password length</label>
+            <input type="number" name="length" id="length" class="form-control" placeholder="password lenght"
+                defaultValue="16" value="16" min="8" max="10000" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please choose a password length between 8 and 10000.
+            </div>
+            <button type="submit" class="btn btn-outline-success w-100 my-3">Generate New Password</button>
+        </form>
+        <p class="text-muted">total passwords generated: <%= locals.totalPasswordsGenerated %>
         </p>
         <p class="text-muted position-fixed bottom-0">Brought to you by <a href="https://dkatsios.ml" target="_blank"
                 rel="noopener">Damian</a>. &copy;2021
