@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-let totalPasswordsGenerated = 0;
 
 const generatePassword = (length) => {
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=<>,./?\|[]{};:`~"
@@ -15,12 +14,10 @@ router.post('/', (req, res) => {
     const length = req.body.length || 16;
     const current = new Date();
     const time = current.toLocaleTimeString("en-US");
-    totalPasswordsGenerated++;
     res.render('generate.ejs', {
         title: 'Strong Password Generator::Generate',
         password: generatePassword(length),
         passwordLength: length,
-        totalPasswordsGenerated: totalPasswordsGenerated,
         time: time
     });
     res.end();
